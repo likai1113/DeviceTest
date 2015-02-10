@@ -34,7 +34,7 @@ public class CpuInfoReader {
 	public static final String SCALING_AVAILABLE_FREQUENCIES = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
 	public static final String SCALING_GPU_FREQ = "/sys/bus/platform/drivers/mali/ffa30000.gpu/clock";
 //	public static final String CPUINFO_CPU_TEMP = "/sys/devices/ff280000.tsadc/temp0_input";
-	public static final String CPUINFO_CPU_TEMP ="/sys/class/thermal/thermal_zone0/temp";
+	public static final String CPUINFO_CPU_TEMP ="/sys/class/thermal/thermal_zone1/temp";
 
 
 	public static float getProcessCpuRate() {

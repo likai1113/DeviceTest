@@ -20,54 +20,63 @@ public class ConfigFinder {
 	 * @return
 	 */
 	public static File findConfigFile(String filename) {
-		if (filename == null)
-		{
+		File existedFile=null;
+		if (filename == null) {
 			return null;
+		} else {
+			// File file=new File("/mnt/usb_storage/sda1/", filename);
+			File f = new File("/mnt/usb_storage/");
+			File[] fileInF = f.listFiles(); // 得到f文件夹下面的所有文件。
+			if (fileInF != null && fileInF.length != 0) {
+				for (File file : fileInF) {
+					String name = file.getName();
+					 existedFile = new File("/mnt/usb_storage/" + name,filename);
+					 break;
+				}
+
+			}
+			return existedFile;
+			// File existedFile = null;
+			// // String sdDir = "/mnt/usb_storage/sda1/";mnt/usb_storage
+			// existedFile = new File("/mnt/usb_storage/sda1//",file);
+			// if (existedFile.exists()) {
+			// return existedFile;
+			// }
+			// return null;
+			//
+			// //0.Absolute
+			//
+			// if(file.startsWith("/")||file.startsWith("\\")){
+			// return new File(file);
+			// }
+			//
+			// File existedFile = null;
+			//
+			// //1.External SDCard
+			// File sdDir = Environment.getSecondVolumeStorageDirectory();
+			// existedFile = new File(sdDir, file);
+			// if(existedFile.exists()){
+			// return existedFile;
+			// }
+			//
+			// //2.USB
+			// List<String> usbList = getAliveUsbPath();
+			// for(String usb : usbList){
+			// existedFile = new File(getSubUsbPath(usb), file);
+			// if(existedFile.exists()){
+			// return existedFile;
+			// }
+			// }
+			//
+			// //3.Internal SDCard
+			// sdDir = Environment.getExternalStorageDirectory();
+			// existedFile = new File(sdDir, file);
+			// if(existedFile.exists()){
+			// return existedFile;
+			// }
+			// Not Found
+			// return null;
 		}
-		else {
-			File file=new File("/mnt/usb_storage/sda1/", filename);
-			return file;
-		}
-//		File existedFile = null;
-////		String sdDir = "/mnt/usb_storage/sda1/";mnt/usb_storage
-//		existedFile = new File("/mnt/usb_storage/sda1//",file);
-//		if (existedFile.exists()) {
-//			return existedFile;
-//		}
-//		return null;
-		//
-		// //0.Absolute
-		//
-		// if(file.startsWith("/")||file.startsWith("\\")){
-		// return new File(file);
-		// }
-		//
-		// File existedFile = null;
-		//
-		// //1.External SDCard
-		// File sdDir = Environment.getSecondVolumeStorageDirectory();
-		// existedFile = new File(sdDir, file);
-		// if(existedFile.exists()){
-		// return existedFile;
-		// }
-		//
-		// //2.USB
-		// List<String> usbList = getAliveUsbPath();
-		// for(String usb : usbList){
-		// existedFile = new File(getSubUsbPath(usb), file);
-		// if(existedFile.exists()){
-		// return existedFile;
-		// }
-		// }
-		//
-		// //3.Internal SDCard
-		// sdDir = Environment.getExternalStorageDirectory();
-		// existedFile = new File(sdDir, file);
-		// if(existedFile.exists()){
-		// return existedFile;
-		// }
-		// Not Found
-		// return null;
 	}
 
 	private static String getSubUsbPath(String usbPath) {
