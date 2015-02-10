@@ -19,23 +19,32 @@ public class ConfigFinder {
 	 * 
 	 * @return
 	 */
-	public static File findConfigFile(String filename) {
-		File existedFile=null;
-		if (filename == null) {
-			return null;
-		} else {
-			// File file=new File("/mnt/usb_storage/sda1/", filename);
-			File f = new File("/mnt/usb_storage/");
-			File[] fileInF = f.listFiles(); // 得到f文件夹下面的所有文件。
-			if (fileInF != null && fileInF.length != 0) {
-				for (File file : fileInF) {
-					String name = file.getName();
-					 existedFile = new File("/mnt/usb_storage/" + name,filename);
-					 break;
-				}
+    public static File findConfigFile(String filename) {
+        File existedFile=null;
+        if (filename == null) 
+        {
+            return null;
+        } 
+        else 
+        {
+			 if(filename.startsWith("/")||filename.startsWith("\\"))
+             {
+			    return new File(filename);
+			 }
+            // File file=new File("/mnt/usb_storage/sda1/", filename);
+            File f = new File("/mnt/usb_storage/");
+            File[] fileInF = f.listFiles(); // 得到f文件夹下面的所有文件。
+            if (fileInF != null && fileInF.length != 0) 
+            {
+                for (File file : fileInF) 
+                {
+                    String name = file.getName();
+                    existedFile = new File("/mnt/usb_storage/" + name,filename);
+                    break;
+                }
 
-			}
-			return existedFile;
+            }
+            return existedFile;
 			// File existedFile = null;
 			// // String sdDir = "/mnt/usb_storage/sda1/";mnt/usb_storage
 			// existedFile = new File("/mnt/usb_storage/sda1//",file);
