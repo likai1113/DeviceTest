@@ -115,22 +115,40 @@ public class CpuTest extends BaseAgingTest {
 		if(percent0==0) percent0 = 1;
 		mCpu0UsageText.setText(percent0+"%");
 
-		long totalTime1 = cpuInfo[4]-mCpuInfo[4];
-		long iddleTime1 = cpuInfo[5]-mCpuInfo[5];
-		int percent1 = (int)((totalTime1-iddleTime1)*1.00f/totalTime1*100);
-		if(percent1==0) percent1 = 1;
+		int percent1 = 0;
+		if(cpuInfo[4] == 0){
+			cpuInfo[4] = mCpuInfo[4];
+			cpuInfo[5] = mCpuInfo[5];
+			percent1 = 0;
+		}else{
+			long totalTime1 = cpuInfo[4]-mCpuInfo[4];
+			long iddleTime1 = cpuInfo[5]-mCpuInfo[5];
+			percent1 = (int)((totalTime1-iddleTime1)*1.00f/totalTime1*100);
+		}
 		mCpu1UsageText.setText(percent1+"%");
 
-		long totalTime2 = cpuInfo[6]-mCpuInfo[6];
-		long iddleTime2 = cpuInfo[7]-mCpuInfo[7];
-		int percent2 = (int)((totalTime2-iddleTime2)*1.00f/totalTime2*100);
-		if(percent2==0) percent2 = 1;
+		int percent2 = 0;
+		if(cpuInfo[6] == 0){
+			cpuInfo[6] = mCpuInfo[6];
+			cpuInfo[7] = mCpuInfo[7];
+			percent2 = 0;
+		}else{
+			long totalTime2 = cpuInfo[6]-mCpuInfo[6];
+			long iddleTime2 = cpuInfo[7]-mCpuInfo[7];
+			percent2 = (int)((totalTime2-iddleTime2)*1.00f/totalTime2*100);
+		}
 		mCpu2UsageText.setText(percent2+"%");
 
-		long totalTime3 = cpuInfo[8]-mCpuInfo[8];
-		long iddleTime3 = cpuInfo[9]-mCpuInfo[9];
-		int percent3 = (int)((totalTime3-iddleTime3)*1.00f/totalTime3*100);
-		if(percent3==0) percent3 = 1;
+		int percent3 = 0;
+		if(cpuInfo[8] == 0){
+			cpuInfo[8] = mCpuInfo[8];
+			cpuInfo[9] = mCpuInfo[9];
+			percent3 = 0;
+		}else{
+			long totalTime3 = cpuInfo[8]-mCpuInfo[8];
+			long iddleTime3 = cpuInfo[9]-mCpuInfo[9];
+			percent3 = (int)((totalTime3-iddleTime3)*1.00f/totalTime3*100);
+		}
 		mCpu3UsageText.setText(percent3+"%");
 
 		mCpuInfo = cpuInfo;

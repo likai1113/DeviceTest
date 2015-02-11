@@ -63,44 +63,103 @@ public class CpuInfoReader {
 		String[] cpu2Infos = null;
 		String[] cpu3Infos = null;
 
+		Boolean isCpu1Enable = true;
+		Boolean isCpu2Enable = true;
+		Boolean isCpu3Enable = true;
+
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("/proc/stat")), 1000);
-			String load = reader.readLine();
-			String cpu0 = reader.readLine();
-			String cpu1 = reader.readLine();
-			String cpu2 = reader.readLine();
-			String cpu3 = reader.readLine();
+			String load="";
+			String cpu0="";
+			String cpu1="";
+			String cpu2="";
+			String cpu3="";
+
+			//The totle cpu time
+			load = reader.readLine();
+			cpuInfos = load.split(" ");
+
+			//The cpu0 time
+			cpu0 = reader.readLine();
+			cpu0Infos = cpu0.split(" ");
+
+			//The cpu1 time
+			cpu1 = reader.readLine();
+			
+			cpu1Infos = cpu1.split(" ");
+			if(cpu1Infos[0].equals("cpu1") == true){
+				isCpu1Enable = true;
+				cpu2 = reader.readLine();
+			}else{
+				isCpu1Enable = false;
+				cpu2 = cpu1;
+				cpu1 = null;
+			}
+
+			//The cpu2 time
+			cpu2Infos = cpu2.split(" ");
+			if(cpu2Infos[0].equals("cpu2") == true){
+				isCpu2Enable = true;
+				cpu3 = reader.readLine();
+			}else{
+				isCpu2Enable = false;
+				cpu3 = cpu2;
+				cpu2 = null;
+			}
+
+			//The cpu3 time
+			cpu3Infos = cpu3.split(" ");
+			if(cpu3Infos[0].equals("cpu3") == true){
+				isCpu3Enable = true;
+			}else{
+				isCpu3Enable = false;
+				cpu3 = null;
+			}
 
 			reader.close();
-			cpuInfos = load.split(" ");
-			cpu0Infos = cpu0.split(" ");
-			cpu1Infos = cpu1.split(" ");
-			cpu2Infos = cpu2.split(" ");
-			cpu3Infos = cpu3.split(" ");
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return cpuInfo;
 		}
 
-		long totalCpu = Long.parseLong(cpuInfos[2]) + Long.parseLong(cpuInfos[3]) + Long.parseLong(cpuInfos[4])
+		long totalCpu=0;
+		long totalCpu0=0;
+		long totalCpu1 = 0;
+		long totalCpu2 = 0;
+		long totalCpu3 = 0;
+		
+		totalCpu = Long.parseLong(cpuInfos[2]) + Long.parseLong(cpuInfos[3]) + Long.parseLong(cpuInfos[4])
 				+ Long.parseLong(cpuInfos[6]) + Long.parseLong(cpuInfos[5]) + Long.parseLong(cpuInfos[7])
 				+ Long.parseLong(cpuInfos[8]);
 
-		long totalCpu0 = Long.parseLong(cpu0Infos[2]) + Long.parseLong(cpu0Infos[3]) + Long.parseLong(cpu0Infos[4])
+		totalCpu0 = Long.parseLong(cpu0Infos[2]) + Long.parseLong(cpu0Infos[3]) + Long.parseLong(cpu0Infos[4])
 				+ Long.parseLong(cpu0Infos[6]) + Long.parseLong(cpu0Infos[5]) + Long.parseLong(cpu0Infos[7])
 				+ Long.parseLong(cpu0Infos[8]);
 
-		long totalCpu1 = Long.parseLong(cpu1Infos[2]) + Long.parseLong(cpu1Infos[3]) + Long.parseLong(cpu1Infos[4])
-				+ Long.parseLong(cpu1Infos[6]) + Long.parseLong(cpu1Infos[5]) + Long.parseLong(cpu1Infos[7])
-				+ Long.parseLong(cpu1Infos[8]);
+		if(isCpu1Enable){
+			totalCpu1 = Long.parseLong(cpu1Infos[2]) + Long.parseLong(cpu1Infos[3]) + Long.parseLong(cpu1Infos[4])
+					+ Long.parseLong(cpu1Infos[6]) + Long.parseLong(cpu1Infos[5]) + Long.parseLong(cpu1Infos[7])
+					+ Long.parseLong(cpu1Infos[8]);
+		}else{
+			totalCpu1 = 0;
+		}
 
-		long totalCpu2 = Long.parseLong(cpu2Infos[2]) + Long.parseLong(cpu2Infos[3]) + Long.parseLong(cpu2Infos[4])
-				+ Long.parseLong(cpu2Infos[6]) + Long.parseLong(cpu2Infos[5]) + Long.parseLong(cpu2Infos[7])
-				+ Long.parseLong(cpu2Infos[8]);
+		if(isCpu2Enable){
+			totalCpu2 = Long.parseLong(cpu2Infos[2]) + Long.parseLong(cpu2Infos[3]) + Long.parseLong(cpu2Infos[4])
+					+ Long.parseLong(cpu2Infos[6]) + Long.parseLong(cpu2Infos[5]) + Long.parseLong(cpu2Infos[7])
+					+ Long.parseLong(cpu2Infos[8]);
+		}else{
+			totalCpu2  = 0;
+		}
+		
 
-//		long totalCpu3 = Long.parseLong(cpu3Infos[2]) + Long.parseLong(cpu3Infos[3]) + Long.parseLong(cpu3Infos[4])
-//				+ Long.parseLong(cpu3Infos[6]) + Long.parseLong(cpu3Infos[5]) + Long.parseLong(cpu3Infos[7])
-//				+ Long.parseLong(cpu3Infos[8]);
+		if(isCpu3Enable){
+			totalCpu3 = Long.parseLong(cpu3Infos[2]) + Long.parseLong(cpu3Infos[3]) + Long.parseLong(cpu3Infos[4])
+					+ Long.parseLong(cpu3Infos[6]) + Long.parseLong(cpu3Infos[5]) + Long.parseLong(cpu3Infos[7])
+					+ Long.parseLong(cpu3Infos[8]);
+		}else{
+			totalCpu3 = 0;
+		}
 
 		cpuInfo[0] = totalCpu;
 		cpuInfo[1] = Long.parseLong(cpuInfos[5]);
@@ -114,9 +173,13 @@ public class CpuInfoReader {
 		cpuInfo[6] = totalCpu2;
 		cpuInfo[7] = Long.parseLong(cpu2Infos[4]);
 
-//		cpuInfo[8] = totalCpu3;
-//		cpuInfo[9] = Long.parseLong(cpu3Infos[4]);
+		cpuInfo[8] = totalCpu3;
+		cpuInfo[9] = Long.parseLong(cpu3Infos[4]);
 
+		Log.d("yanxd","isCpu1Enable = "+isCpu1Enable+"isCpu2Enable="+isCpu2Enable+"isCpu3Enable"+isCpu3Enable);
+		Log.d("yanxd","cpu1: cpuInfo[4] = "+cpuInfo[4]+"cpuInfo[5] = "+cpuInfo[5]);
+		Log.d("yanxd","cpu2: cpuInfo[6] = "+cpuInfo[6]+"cpuInfo[7] = "+cpuInfo[7]);
+		Log.d("yanxd","cpu3: cpuInfo[8] = "+cpuInfo[8]+"cpuInfo[9] = "+cpuInfo[9]);
 		return cpuInfo;
 	}
 
