@@ -176,10 +176,10 @@ public class CpuInfoReader {
 		cpuInfo[8] = totalCpu3;
 		cpuInfo[9] = Long.parseLong(cpu3Infos[4]);
 
-		Log.d("yanxd","isCpu1Enable = "+isCpu1Enable+"isCpu2Enable="+isCpu2Enable+"isCpu3Enable"+isCpu3Enable);
-		Log.d("yanxd","cpu1: cpuInfo[4] = "+cpuInfo[4]+"cpuInfo[5] = "+cpuInfo[5]);
-		Log.d("yanxd","cpu2: cpuInfo[6] = "+cpuInfo[6]+"cpuInfo[7] = "+cpuInfo[7]);
-		Log.d("yanxd","cpu3: cpuInfo[8] = "+cpuInfo[8]+"cpuInfo[9] = "+cpuInfo[9]);
+		//Log.d("yanxd","isCpu1Enable = "+isCpu1Enable+"isCpu2Enable="+isCpu2Enable+"isCpu3Enable"+isCpu3Enable);
+		//Log.d("yanxd","cpu1: cpuInfo[4] = "+cpuInfo[4]+"cpuInfo[5] = "+cpuInfo[5]);
+		//Log.d("yanxd","cpu2: cpuInfo[6] = "+cpuInfo[6]+"cpuInfo[7] = "+cpuInfo[7]);
+		//Log.d("yanxd","cpu3: cpuInfo[8] = "+cpuInfo[8]+"cpuInfo[9] = "+cpuInfo[9]);
 		return cpuInfo;
 	}
 
