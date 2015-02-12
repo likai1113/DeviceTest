@@ -7,7 +7,7 @@ import com.rockchip.devicetest.utils.FileUtils;
 public class LEDSettings {
 
 	public enum LEDMode {
-		ON("3"),
+		ON("1"),
 		OFF("0");
 		
 		public String value;
@@ -25,7 +25,7 @@ public class LEDSettings {
 		}
 	}
 
-    private static final String SYS_LED_FILE = "/sys/class/led_gpio/net_led";
+    private static final String SYS_LED_FILE = "/sys/class/leds/aml_ir_led/brightness";
 
     /**
      * 获得当前灯的状态
