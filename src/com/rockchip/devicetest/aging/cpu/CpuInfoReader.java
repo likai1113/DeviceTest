@@ -27,7 +27,7 @@ import com.rockchip.devicetest.utils.StringUtils;
 
 public class CpuInfoReader {
 
-	public static final String SOC = "/sys/devices/system/cpu/soc";
+	public static final String SOC = "/proc/cpuinfo";
 	public static final String SCALING_CUR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 	public static final String CPUINFO_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
 	public static final String CPUINFO_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
@@ -238,7 +238,7 @@ public class CpuInfoReader {
 	 * @return
 	 */
 	public static String getCpuModel() {
-		return FileUtils.readFromFile(new File(SOC));
+		return FileUtils.readFromFile2(new File(SOC));
 	}
 
 	/**
