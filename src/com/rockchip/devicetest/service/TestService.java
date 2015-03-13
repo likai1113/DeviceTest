@@ -163,16 +163,15 @@ public class TestService extends Service {
 
 	// 执行测试
 	private void handleTest() {
-		// 检测功能测试
+		LogUtil.d(this, "===in handleTest===");
 		if (isInFactoryTest()) {
-			// if (true) {// 默认在assets下面有Factory_Test.bin文件
 			LogUtil.d(this, "Rock do factory test. ");
 			startActivityWait(IndexActivity.class);
-		} else if (isInAgingTest()) {// 检测老化测试
-			// } else if (true) {// 检测老化测试
+		} else if (isInAgingTest()) {
 			startActivityWait(AgingTestActivity.class);
 			LogUtil.d(this, "Rock do aging test.");
-		} else if (isInSNTest()) {
+		} else if (true) {
+			LogUtil.d(this, "===handleTest switch usb mode===");
 			UsbSettings.enableADB(this);
 			UsbSettings.setUsbSlaveMode();
 		} else {
