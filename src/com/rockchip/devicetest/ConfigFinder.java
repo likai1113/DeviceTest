@@ -48,17 +48,19 @@ public class ConfigFinder {
 		// }
 		
 		// 2.USB
-		File f = new File("/mnt/usb_storage/");
-		File[] fileInF = f.listFiles(); // 得到f文件夹下面的所有文件。
-		if (fileInF != null && fileInF.length != 0) {
-			for (File fileitem : fileInF) {
-				String name = fileitem.getName();
-				existedFile = new File("/mnt/usb_storage/" + name, file);
-				break;
+		if(file.equals("SN_Test.bin") == false){
+			File f = new File("/mnt/usb_storage/");
+			File[] fileInF = f.listFiles(); // 得到f文件夹下面的所有文件。
+			if (fileInF != null && fileInF.length != 0) {
+				for (File fileitem : fileInF) {
+					String name = fileitem.getName();
+					existedFile = new File("/mnt/usb_storage/" + name, file);
+					break;
+				}
+				return existedFile;
 			}
-			return existedFile;
-
 		}
+		
 		// 3, SDCard
 		existedFile = new File("/mnt/external_sd/",file);
 		if (existedFile.exists()) {
