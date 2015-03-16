@@ -170,7 +170,7 @@ public class TestService extends Service {
 		} else if (isInAgingTest()) {
 			startActivityWait(AgingTestActivity.class);
 			LogUtil.d(this, "Rock do aging test.");
-		} else if (true) {
+		} else if (isInSNTest()) {
 			LogUtil.d(this, "===handleTest switch usb mode===");
 			UsbSettings.enableADB(this);
 			UsbSettings.setUsbSlaveMode();
