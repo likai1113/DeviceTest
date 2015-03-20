@@ -32,6 +32,7 @@ public enum Commands {
 	CMD_USB(TypeConstants.CMD_USB, R.string.cmd_usb),
 	CMD_MIC(TypeConstants.CMD_MIC, R.string.cmd_mic),
 	CMD_BT(TypeConstants.CMD_BT, R.string.cmd_bt),
+	CMD_VERSION(TypeConstants.CMD_VERSION, R.string.cmd_version),
 	//CMD_RDSN(TypeConstants.CMD_RDSN, 0),
 	CMD_CKSN(TypeConstants.CMD_CKSN, 0/*R.string.cmd_cksn*/),
 	CMD_TEST(TypeConstants.CMD_TEST, 0),

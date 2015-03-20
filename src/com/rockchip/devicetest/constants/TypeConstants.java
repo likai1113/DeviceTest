@@ -33,6 +33,8 @@ public class TypeConstants {
 	public static final String CMD_CKSN = "CKSN";//验号?
 	public static final String CMD_MIC = "MIC";//麦克风
 	public static final String CMD_BT = "BT";//蓝牙
+	public static final String CMD_VERSION = "VERSION";//版本比较
+	
 	
 	//CommandType
 	public static final int TYPE_CMD = 0;

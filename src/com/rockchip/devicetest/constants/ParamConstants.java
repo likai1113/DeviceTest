@@ -29,5 +29,8 @@ public class ParamConstants {
 	
 	//Storage
 	public static final String STORAGE_SIZE = "size";
+	
+	//版本比较
+	public static final String  VERSION = "version";
 
 }

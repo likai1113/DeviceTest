@@ -20,6 +20,7 @@
     <string name="cmd_cksn">验号</string>
     <string name="cmd_mic">麦克风</string>
     <string name="cmd_bt">蓝牙</string>
+    <string name="cmd_version">版本比较</string>
     
     <!-- Main -->
     <string name="main_title">设备测试工具</string>

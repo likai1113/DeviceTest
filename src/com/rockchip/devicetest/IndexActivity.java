@@ -52,6 +52,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.os.SystemProperties;
 
 public class IndexActivity extends BaseActivity implements ListViewLoadListener {
 
@@ -352,7 +353,8 @@ public class IndexActivity extends BaseActivity implements ListViewLoadListener 
 		TextView ramText = (TextView) findViewById(R.id.tv_ram);
 		TextView flashText = (TextView) findViewById(R.id.tv_flash);
 		modelText.setText(Build.PRODUCT);
-		versionText.setText(Build.DISPLAY);
+		//versionText.setText(Build.DISPLAY);
+        versionText.setText(getSystemVersion());
 		ramText.setText(SystemInfoUtils.getFormattedRamSpace(this));
 		// flash
 		flashText.setText(SystemInfoUtils.getFormattedFlashSpace(this));
@@ -485,4 +487,8 @@ public class IndexActivity extends BaseActivity implements ListViewLoadListener 
 		return false;
 	}
 
+    public String getSystemVersion() {
+                return SystemProperties.get("ro.system.version.name", "") + "."
+                                    + SystemProperties.get("ro.build.date.utc", "");
+    }
 }
