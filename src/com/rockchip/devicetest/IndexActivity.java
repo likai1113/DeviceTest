@@ -54,6 +54,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.os.SystemProperties;
 
+import android.os.PowerManager;
+
 public class IndexActivity extends BaseActivity implements ListViewLoadListener {
 
 	private TestApplication mApp;
@@ -68,6 +70,8 @@ public class IndexActivity extends BaseActivity implements ListViewLoadListener 
 	private boolean isRunningTask;
 	private int mSeletedTestIndex;
 	private StorageManager mStorageManager = null;
+    
+    private PowerManager pm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,8 @@ public class IndexActivity extends BaseActivity implements ListViewLoadListener 
 		mStorageManager.registerListener(mStorageListener);
 		mTestCaseList = new ArrayList<TestCaseInfo>();
 		mTestHandlerList = new ArrayList<BaseTestCase>();
+        
+        pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
 		// init handler config
 		initHandlerConfig();
 		initUserConfig();
@@ -215,6 +221,16 @@ public class IndexActivity extends BaseActivity implements ListViewLoadListener 
 					try {// 此文件用于烧写、写号工具判断是否已经过功能测试
 						File passFile = new File(Environment.getExternalStorageDirectory(), "ftest_pass.bin");
 						passFile.createNewFile();
+                        //pm.reboot("reboot");
+                        new Thread(new Runnable(){
+                            public void run(){
+                                try{
+                                    Thread.sleep(5000);
+                                    pm.reboot("reboot");
+                                }catch(Exception e){
+                                }
+                            }
+                        }).start();
 					} catch (Exception e) {
 						LogUtil.e(this, "Failed to create ftest_pass.bin");
 					}
