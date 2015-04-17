@@ -146,7 +146,7 @@ public class BluetoothTest extends BaseTestCase {
 					startDiscovery();
 				} else {
 					if (mRetryOpen < MAX_RETRY_NUM) {
-						LogUtil.i(TAG, "Try to open bluetooth. ");
+						LogUtil.i(this, "Try to open bluetooth. ");
 						mRetryOpen++;
 						mBluetoothAdapter.enable();
 						sendEmptyMessageDelayed(MSG_OPEN_BT, BT_REOPEN_INTERVAL_MS);
@@ -166,17 +166,17 @@ public class BluetoothTest extends BaseTestCase {
 			if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
 				int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, Integer.MIN_VALUE);
 				if (state == BluetoothAdapter.STATE_ON) {
-                    LogUtil.d(TAG, "BluetoothReceiver, ACTION_STATE_CHANGED STATE_ON");
+                    LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED STATE_ON");
 					startDiscovery();
 				} else if (state == BluetoothAdapter.STATE_OFF) {
-                    LogUtil.d(TAG, "BluetoothReceiver, ACTION_STATE_CHANGED STATE_OF");
+                    LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED STATE_OF");
 					//nothing
 				}
 			} else if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_STARTED)) {
-                LogUtil.d(TAG, "BluetoothReceiver, ACTION_STATE_CHANGED DISCOVERY_STARTED");
+                LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED DISCOVERY_STARTED");
 				updateDetail(getString(R.string.bt_start_discovery));
 			} else if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)) {
-                LogUtil.d(TAG, "BluetoothReceiver, ACTION_STATE_CHANGED DISCOVERY_FINISHED");
+                LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED DISCOVERY_FINISHED");
 				if(!isTesting()){
 					return;
 				}
@@ -188,7 +188,7 @@ public class BluetoothTest extends BaseTestCase {
 					onTestFail(R.string.bt_fail_discovery);
 				}
 			} else if (action.equals(BluetoothDevice.ACTION_FOUND)) {
-                LogUtil.d(TAG, "BluetoothReceiver, ACTION_STATE_CHANGED FOUND");
+                LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED FOUND");
 				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 				if (device != null) {
 					if(StringUtils.isEmptyObj(mSpecifiedBTName)){// If don't config specify BT name, found any device will be success.
