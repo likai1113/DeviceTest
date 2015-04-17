@@ -158,7 +158,7 @@ public class TestService extends Service {
 	// 启动测试
 	public void startTest() {
 		mMainHandler.removeCallbacks(mDelayRunAction);
-		mMainHandler.postDelayed(mDelayRunAction, 1500);
+		mMainHandler.postDelayed(mDelayRunAction, 5000);
 	}
 
 	// 执行测试
