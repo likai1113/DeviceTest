@@ -234,7 +234,10 @@ public class IndexActivity extends BaseActivity implements ListViewLoadListener 
 					} catch (Exception e) {
 						LogUtil.e(this, "Failed to create ftest_pass.bin");
 					}
-				}
+				} else {
+                    LogUtil.d(this, "test Failed, set sys.amlogic.debug = 1");
+                    SystemProperties.set("sys.amlogic.debug", "1");
+                }
 				saveFactoryTest(ret);
 				LogUtil.d(this, "Test Finished. Result: " + ret);
 			} else {
