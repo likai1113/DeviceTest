@@ -128,16 +128,19 @@ public class IndexActivity extends BaseActivity implements ListViewLoadListener 
 
 	protected void onStart() {
 		super.onStart();
+        Log.e("AmpakTest","DeviceTest App onStart");
 		mApp.setShowingApp(true);
 	}
 
 	protected void onResume() {
 		super.onResume();
+        Log.e("AmpakTest","DeviceTest App onResume");
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+        Log.e("AmpakTest","DeviceTest App onPause");
 		mMainHandler.removeCallbacksAndMessages(null);
 		mApp.setActivityReady(false);
 	}
@@ -145,11 +148,13 @@ public class IndexActivity extends BaseActivity implements ListViewLoadListener 
 	@Override
 	protected void onStop() {
 		super.onStop();
+        Log.e("AmpakTest","DeviceTest App onStop");
 		mApp.setShowingApp(false);
 	}
 
 	protected void onDestroy() {
 		super.onDestroy();
+        Log.e("AmpakTest","DeviceTest App onDestroy");
 		if (mStorageManager != null) {
 			mStorageManager.unregisterListener(mStorageListener);
 		}

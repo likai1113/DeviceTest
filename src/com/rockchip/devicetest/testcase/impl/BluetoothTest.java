@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.rockchip.devicetest.R;
 import com.rockchip.devicetest.constants.ParamConstants;
@@ -38,7 +39,7 @@ public class BluetoothTest extends BaseTestCase {
 	public static final int MAX_RETRY_NUM = 3;
     private static final int BT_REOPEN_INTERVAL_MS = 3 * 1000;
 	// Discovery can take 12s to complete - set to 13s.
-    private static final int BT_DISCOVERY_TIMEOUT_MS = 13 * 1000;
+    private static final int BT_DISCOVERY_TIMEOUT_MS = 14 * 1000;
 	private int mRetryOpen;
 	private int mRetryDiscovery;
 	private boolean hasRegisterReceiver;
@@ -58,6 +59,7 @@ public class BluetoothTest extends BaseTestCase {
 		mRetryDiscovery = 0;
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if(mBluetoothAdapter == null){
+			Log.e("AmpakTest","bt_err_noexist");
 			onTestFail(R.string.bt_err_noexist);
 			return false;
 		}
@@ -131,6 +133,7 @@ public class BluetoothTest extends BaseTestCase {
 		if(mBluetoothHandler!=null)
 			mBluetoothHandler.removeMessages(MSG_OPEN_BT);
 		if(!mBluetoothAdapter.startDiscovery()){
+            Log.e("AmpakTest","bt_err_discovery");
 			onTestFail(R.string.bt_err_discovery);
 		}
 	}
@@ -146,11 +149,12 @@ public class BluetoothTest extends BaseTestCase {
 					startDiscovery();
 				} else {
 					if (mRetryOpen < MAX_RETRY_NUM) {
-						LogUtil.i(this, "Try to open bluetooth. ");
+						Log.e("AmpakTest", "Try to open bluetooth. ");
 						mRetryOpen++;
 						mBluetoothAdapter.enable();
 						sendEmptyMessageDelayed(MSG_OPEN_BT, BT_REOPEN_INTERVAL_MS);
 					} else {
+                        Log.e("AmpakTest","bt_err_open");
 						onTestFail(R.string.bt_err_open);
 						removeMessages(MSG_OPEN_BT);
 					}
@@ -166,29 +170,29 @@ public class BluetoothTest extends BaseTestCase {
 			if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
 				int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, Integer.MIN_VALUE);
 				if (state == BluetoothAdapter.STATE_ON) {
-                    LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED STATE_ON");
+                    Log.d("AmpakTest", "BluetoothReceiver, ACTION_STATE_CHANGED STATE_ON");
 					startDiscovery();
 				} else if (state == BluetoothAdapter.STATE_OFF) {
-                    LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED STATE_OF");
+                    Log.d("AmpakTest", "BluetoothReceiver, ACTION_STATE_CHANGED STATE_OF");
 					//nothing
 				}
 			} else if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_STARTED)) {
-                LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED DISCOVERY_STARTED");
+                Log.d("AmpakTest", "BluetoothReceiver, ACTION_STATE_CHANGED DISCOVERY_STARTED");
 				updateDetail(getString(R.string.bt_start_discovery));
 			} else if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)) {
-                LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED DISCOVERY_FINISHED");
+                Log.d("AmpakTest", "BluetoothReceiver, ACTION_STATE_CHANGED DISCOVERY_FINISHED");
+                setTestTimeout(BT_DISCOVERY_TIMEOUT_MS);
 				if(!isTesting()){
 					return;
 				}
 				if (mRetryDiscovery < MAX_RETRY_NUM) {
 					mRetryDiscovery++;
-                    setTestTimeout(BT_DISCOVERY_TIMEOUT_MS);
 					startDiscovery();
 				} else {
 					onTestFail(R.string.bt_fail_discovery);
 				}
 			} else if (action.equals(BluetoothDevice.ACTION_FOUND)) {
-                LogUtil.d(this, "BluetoothReceiver, ACTION_STATE_CHANGED FOUND");
+                Log.d("AmpakTest", "BluetoothReceiver, ACTION_STATE_CHANGED FOUND");
 				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 				if (device != null) {
 					if(StringUtils.isEmptyObj(mSpecifiedBTName)){// If don't config specify BT name, found any device will be success.

@@ -14,6 +14,7 @@ package com.rockchip.devicetest.testcase;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import com.rockchip.devicetest.R;
 import com.rockchip.devicetest.enumerate.TestResultType;
@@ -91,11 +92,15 @@ public abstract class BaseTestCase implements ITestCase {
 	 * @param millsec
 	 */
 	public void setTestTimeout(int millsec){
+        Log.e("BluetoothTest","set Time out "+String.valueOf(millsec) +"sec");//Tony
+		Log.e("AmpakTest","set Time out "+String.valueOf(millsec) +"sec");
 		mMainHandler.removeCallbacks(mTimeOutAction);
 		mMainHandler.postDelayed(mTimeOutAction, millsec);
 	}
 	private Runnable mTimeOutAction = new Runnable(){
 		public void run(){
+            Log.e("BluetoothTest","Test time out!!!!");//Tony
+			Log.e("AmpakTest","Test time out!!!!");//Tony
 			onTestFail(R.string.pub_time_out);
 		}
 	};
