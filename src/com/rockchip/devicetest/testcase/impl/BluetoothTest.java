@@ -39,7 +39,7 @@ public class BluetoothTest extends BaseTestCase {
 	public static final int MAX_RETRY_NUM = 3;
     private static final int BT_REOPEN_INTERVAL_MS = 3 * 1000;
 	// Discovery can take 12s to complete - set to 13s.
-    private static final int BT_DISCOVERY_TIMEOUT_MS = 14 * 1000;
+    private static final int BT_DISCOVERY_TIMEOUT_MS = 16 * 1000;
 	private int mRetryOpen;
 	private int mRetryDiscovery;
 	private boolean hasRegisterReceiver;
