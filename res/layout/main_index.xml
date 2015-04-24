@@ -74,14 +74,23 @@
 		        android:cacheColorHint="@android:color/transparent"
 		        android:listSelector="@drawable/testcase_list_selector"
 		        android:divider="@android:color/transparent"/>
+
+	       	<TextView
+	       	    android:id="@+id/textLog"
+	       	    android:layout_width="wrap_content"
+	       	    android:layout_height="wrap_content"
+	       	    android:maxLines="100"
+	       	    android:singleLine="false"
+	       	     />
+
 	 	</LinearLayout>
 	 	<TextView
 	 	    android:id="@+id/tv_main_result"
-	 	    android:layout_width="600dip"
-	        android:layout_height="480dip"
+	 	    android:layout_width="300dip"
+	        android:layout_height="280dip"
 	 	    android:layout_gravity="center"
 	 	    android:gravity="center"
-	 	    android:textSize="100sp"
+	 	    android:textSize="30sp"
 	 	    android:padding="100dip"
 	 	    android:text="@string/pub_pass"
 	 	    android:textColor="@color/holo_green_light"

@@ -73,11 +73,16 @@ public class IndexActivity extends BaseActivity implements ListViewLoadListener 
     
     private PowerManager pm;
 
+	static public TextView textLog;
+	static public BaseActivity baseActivity;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_index);
 		mStorageManager = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
+		textLog=(TextView)findViewById(R.id.textLog);//tony
+		baseActivity=this;
 		mStorageManager.registerListener(mStorageListener);
 		mTestCaseList = new ArrayList<TestCaseInfo>();
 		mTestHandlerList = new ArrayList<BaseTestCase>();

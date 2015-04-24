@@ -14,13 +14,18 @@ package com.rockchip.devicetest.testcase;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
+import com.rockchip.devicetest.IndexActivity;
 import com.rockchip.devicetest.R;
 import com.rockchip.devicetest.enumerate.TestResultType;
 import com.rockchip.devicetest.enumerate.TestStatus;
 import com.rockchip.devicetest.model.TestCaseInfo;
 import com.rockchip.devicetest.model.TestResult;
+
+import com.rockchip.devicetest.utils.LogUtil;//Tony
+import android.util.Log;//tony
+import android.content.Intent;//tony
+
 
 public abstract class BaseTestCase implements ITestCase {
 
@@ -92,16 +97,21 @@ public abstract class BaseTestCase implements ITestCase {
 	 * @param millsec
 	 */
 	public void setTestTimeout(int millsec){
-        Log.e("BluetoothTest","set Time out "+String.valueOf(millsec) +"sec");//Tony
+		LogUtil.e("BluetoothTest","set Time out "+String.valueOf(millsec) +"sec");//Tony
 		Log.e("AmpakTest","set Time out "+String.valueOf(millsec) +"sec");
+		IndexActivity.textLog.setText(IndexActivity.textLog.getText()+"set Time out "+String.valueOf(millsec) +"sec"+'\n');//yaya
 		mMainHandler.removeCallbacks(mTimeOutAction);
 		mMainHandler.postDelayed(mTimeOutAction, millsec);
 	}
 	private Runnable mTimeOutAction = new Runnable(){
 		public void run(){
-            Log.e("BluetoothTest","Test time out!!!!");//Tony
+			Intent it = new Intent("TIME_OUT");
+			IndexActivity.baseActivity.sendBroadcast(it);
+			
+			/*LogUtil.e("BluetoothTest","Test time out!!!!");//Tony
 			Log.e("AmpakTest","Test time out!!!!");//Tony
-			onTestFail(R.string.pub_time_out);
+			IndexActivity.textLog.setText(IndexActivity.textLog.getText()+"Test time out!!!!"+'\n');//yaya
+			onTestFail(R.string.pub_time_out);*/
 		}
 	};
 	public void clearTestTimeout(){

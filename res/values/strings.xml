@@ -128,7 +128,7 @@
     <string name="bt_fail_discovery">未发现蓝牙设备</string>
     <string name="bt_err_discovery">发现蓝牙设备异常</string>
     <string name="bt_found">BT: <xliff:g id="btname">%s</xliff:g></string>
-    
+    <string name="bt_delay_open">Delay 5 sec...</string> 
     <!-- 老化测试 -->
     <string name="aging_test_title">老化测试</string>
     <string name="cpu_title">CPU:</string>
